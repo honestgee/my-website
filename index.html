@@ -3,82 +3,134 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Honestgee | Secure Terminal</title>
+    <title>Honestgee | Terminal</title>
     <style>
-        /* Matrix Hacker Background */
+        /* Base Hacker Theme */
         body {
-            background-color: #050505;
+            background-color: #000;
             color: #00FF41;
             font-family: 'Courier New', Courier, monospace;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
             margin: 0;
-            overflow: hidden;
+            overflow: hidden; /* Keeps the Matrix rain in background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
         }
 
-        /* Glitch Effect Container */
-        .profile-card {
+        /* Canvas for Matrix Rain */
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+
+        /* Profile Card */
+        .card {
+            background: rgba(0, 20, 0, 0.9);
             border: 2px solid #00FF41;
             padding: 30px;
-            background: rgba(0, 50, 0, 0.1);
             box-shadow: 0 0 20px #00FF41;
             text-align: center;
-            max-width: 400px;
+            width: 90%;
+            max-width: 380px;
+            z-index: 1;
         }
 
         h1 {
             font-size: 1.5rem;
-            text-transform: uppercase;
-            letter-spacing: 3px;
+            letter-spacing: 4px;
+            margin-bottom: 20px;
             border-bottom: 1px solid #00FF41;
-            padding-bottom: 10px;
+            display: inline-block;
         }
 
-        /* The Button Style */
+        /* Buttons */
         .btn {
-            display: inline-block;
-            margin-top: 20px;
-            padding: 10px 20px;
-            color: #050505;
-            background-color: #00FF41;
+            display: block;
+            margin: 12px 0;
+            padding: 12px;
+            color: #00FF41;
+            background: transparent;
             text-decoration: none;
+            border: 1px solid #00FF41;
+            font-size: 0.9rem;
             font-weight: bold;
-            border: none;
-            cursor: pointer;
-            transition: 0.3s;
+            transition: all 0.3s ease;
         }
 
         .btn:hover {
-            background-color: #008F11;
+            background: #00FF41;
+            color: #000;
             box-shadow: 0 0 15px #00FF41;
+            transform: scale(1.05);
         }
 
-        /* Encrypted Email Link */
         .email-link {
-            color: #00FF41;
-            text-decoration: underline;
-            font-size: 0.9rem;
-            margin-top: 15px;
             display: block;
+            margin-top: 20px;
+            color: #00FF41;
+            font-size: 0.75rem;
+            text-decoration: underline;
+            opacity: 0.8;
         }
     </style>
 </head>
 <body>
 
-    <div class="profile-card">
-        <h1>User: Honestgee</h1>
-        <p>[SYSTEM STATUS: SECURE]</p>
-        <p>Location: Termux_Main_Server</p>
-        
-        <button class="btn" onclick="alert('Accessing Encrypted Data...')">RUN SYSTEM SCAN</button>
+    <canvas id="matrix"></canvas>
+
+    <div class="card">
+        <h1>HONESTGEE</h1>
+        <p>> [SYSTEM ACCESS GRANTED]</p>
+
+        <a href="https://wa.me/254750917352" class="btn" target="_blank">>> WHATSAPP</a>
+        <a href="https://www.instagram.com/tnnp_gallery?igsh=MXBrampqb3NqdXpjaA==" class="btn" target="_blank">>> INSTAGRAM</a>
+        <a href="https://www.facebook.com/profile.php?id=61582777286468" class="btn" target="_blank">>> FACEBOOK</a>
 
         <a href="mailto:honestg521@gmail.com" class="email-link">
-            >> [ENCRYPTED] Send email to me for any help
+            [ENCRYPTED] Send email to me for any help
         </a>
     </div>
+
+    <script>
+        const canvas = document.getElementById('matrix');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const alphabet = "01ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        const fontSize = 16;
+        const columns = canvas.width / fontSize;
+        const drops = Array.from({ length: columns }).fill(1);
+
+        function draw() {
+            ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = "#0F0";
+            ctx.font = fontSize + "px monospace";
+
+            for (let i = 0; i < drops.length; i++) {
+                const text = alphabet.charAt(Math.floor(Math.random() * alphabet.length));
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+
+        setInterval(draw, 33);
+        
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+    </script>
 
 </body>
 </html>
