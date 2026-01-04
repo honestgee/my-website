@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Honestgee | Terminal</title>
+    <title>Honestgee | Secure Terminal</title>
     <style>
         /* Base Hacker Theme */
         body {
@@ -11,14 +11,14 @@
             color: #00FF41;
             font-family: 'Courier New', Courier, monospace;
             margin: 0;
-            overflow: hidden; /* Keeps the Matrix rain in background */
+            overflow: hidden;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
         }
 
-        /* Canvas for Matrix Rain */
+        /* Matrix Rain Canvas */
         canvas {
             position: fixed;
             top: 0;
@@ -28,28 +28,47 @@
 
         /* Profile Card */
         .card {
-            background: rgba(0, 20, 0, 0.9);
+            background: rgba(0, 10, 0, 0.85);
             border: 2px solid #00FF41;
             padding: 30px;
-            box-shadow: 0 0 20px #00FF41;
+            box-shadow: 0 0 25px rgba(0, 255, 65, 0.5);
             text-align: center;
             width: 90%;
-            max-width: 380px;
+            max-width: 400px;
             z-index: 1;
         }
 
-        h1 {
-            font-size: 1.5rem;
-            letter-spacing: 4px;
+        /* Typing Animation for H1 */
+        .typing-container {
+            display: flex;
+            justify-content: center;
             margin-bottom: 20px;
-            border-bottom: 1px solid #00FF41;
-            display: inline-block;
         }
 
-        /* Buttons */
+        h1 {
+            font-size: 1.6rem;
+            letter-spacing: 3px;
+            white-space: nowrap;
+            overflow: hidden;
+            border-right: 3px solid #00FF41;
+            width: 0;
+            animation: typing 3s steps(15, end) forwards, blink 0.8s infinite;
+        }
+
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+
+        @keyframes blink {
+            from, to { border-color: transparent }
+            50% { border-color: #00FF41 }
+        }
+
+        /* Neon Buttons */
         .btn {
             display: block;
-            margin: 12px 0;
+            margin: 15px 0;
             padding: 12px;
             color: #00FF41;
             background: transparent;
@@ -57,81 +76,33 @@
             border: 1px solid #00FF41;
             font-size: 0.9rem;
             font-weight: bold;
+            text-transform: uppercase;
             transition: all 0.3s ease;
+            position: relative;
         }
 
         .btn:hover {
             background: #00FF41;
             color: #000;
-            box-shadow: 0 0 15px #00FF41;
-            transform: scale(1.05);
+            box-shadow: 0 0 20px #00FF41, 0 0 40px #00FF41;
+            transform: translateY(-3px);
         }
 
         .email-link {
             display: block;
-            margin-top: 20px;
+            margin-top: 25px;
             color: #00FF41;
-            font-size: 0.75rem;
-            text-decoration: underline;
-            opacity: 0.8;
-        }
-    </style>
-</head>
-<body>
-
-    <canvas id="matrix"></canvas>
-
-    <div class="card">
-        <h1>HONESTGEE</h1>
-        <p>> [SYSTEM ACCESS GRANTED]</p>
-
-        <a href="https://wa.me/254750917352" class="btn" target="_blank">>> WHATSAPP</a>
-        <a href="https://www.instagram.com/tnnp_gallery?igsh=MXBrampqb3NqdXpjaA==" class="btn" target="_blank">>> INSTAGRAM</a>
-        <a href="https://www.facebook.com/profile.php?id=61582777286468" class="btn" target="_blank">>> FACEBOOK</a>
-
-        <a href="mailto:honestg521@gmail.com" class="email-link">
-            [ENCRYPTED] Send email to me for any help
-        </a>
-    </div>
-
-    <script>
-        const canvas = document.getElementById('matrix');
-        const ctx = canvas.getContext('2d');
-
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-
-        const alphabet = "01ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-        const fontSize = 16;
-        const columns = canvas.width / fontSize;
-        const drops = Array.from({ length: columns }).fill(1);
-
-        function draw() {
-            ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-            ctx.fillStyle = "#0F0";
-            ctx.font = fontSize + "px monospace";
-
-            for (let i = 0; i < drops.length; i++) {
-                const text = alphabet.charAt(Math.floor(Math.random() * alphabet.length));
-                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-
-                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-                    drops[i] = 0;
-                }
-                drops[i]++;
-            }
+            font-size: 0.8rem;
+            text-decoration: none;
+            opacity: 0.7;
         }
 
-        setInterval(draw, 33);
-        
-        window.addEventListener('resize', () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        });
-    </script>
+        .email-link:hover { opacity: 1; text-decoration: underline; }
 
-</body>
-</html>
+        /* Hacker Loading Bar */
+        .progress-container {
+            width: 100%;
+            background-color: #111;
+            margin-top: 10px;
+            border: 1px solid #0
 
